@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        {% load static %}
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
+        <link rel="icon" href="{% static 'images/logo.png' %}" type="image/png">
+        <script src="https://cdn.tailwindcss.com"></script>
+        <link rel="stylesheet" href="{% static 'css/landing.css' %}">
+        <title>Welcome to VizKids</title>
+        <style>
+            body {
+                background: url('static/images/Vector 1.png') no-repeat center center fixed;
+                background-size: cover;
+            }
+
+            .floating {
+                animation: floating 3s ease-in-out infinite;
+            }
+
+            @keyframes floating {
+                0%, 100% {
+                    transform: translateY(0);
+                }
+                50% {
+                    transform: translateY(-10px);
+                }
+            }
+        </style>
+    </head>
+    <body class="min-h-screen flex flex-col items-center justify-center min-w-full">
+        <nav class="absolute top-0 left-0 right-0 w-full">
+            <div class="flex flex-wrap items-center justify-between mx-auto p-3">
+                <a href="#" class="flex items-center space-x-3 rtl:space-x-reverse px-3">
+                    <img src="static/images/logo.png" alt="VizKidz Logo" class="h-8">
+                    <img class="hidden sm:block h-8" src="static/images/logo - word primary.png" alt="VizKidz Wordmark">
+                </a>
+            </div>
+        </nav>
+
+        <img src="static/images/doodle-7 1.png" class="absolute left-0 top-0 h-auto w-auto">
+
+        <!-- Main Content -->
+        <div class="relative z-10 flex flex-col items-center justify-center text-center inset-0 px-4">
+            <h1 class="text-6xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold leading-tight sm:leading-relaxed text-black mb-2">Bring Your Data to Life</h1>
+            <p class="text-lg sm:text-xl md:text-2xl text-gray-800 mb-2">Visualize, analyze, and share insights with ease using</p>
+            <div class="w-64 sm:w-80 h-32 sm:h-48">
+                <img src="{% static 'images/logo - word primary.png' %}" alt="VizKidz Logo" class="mb-10">
+                <a href="{% url 'signin' %}" class="w-full sm:w-16 items-center justify-center font-semibold text-center bg-purple-500 text-white rounded-full shadow-lg hover:bg-purple-600 transition mt-0 p-3">
+                    Visualize Now!
+                </a>
+            </div>
+            
+        </div>
+        <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.js"></script>
+    </body>
+</html>

@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        {% load static %}
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
+        <title>Dashboard | VizKidz</title>
+        <link rel="icon" href="{% static 'images/logo.png' %}" type="image/png">
+        <script src="https://cdn.tailwindcss.com"></script>
+        <link rel="stylesheet" href="{% static 'css/landing.css' %}">
+        <style>
+            body {
+                background: url('static/images/Vector 1.png') no-repeat center center fixed;
+                background-size: cover;
+            }
+
+            .floating {
+                animation: floating 3s ease-in-out infinite;
+            }
+
+            @keyframes floating {
+                0%, 100% {
+                    transform: translateY(0);
+                }
+                50% {
+                    transform: translateY(-10px);
+                }
+            }
+        </style>
+    </head>
+    <body class="h-screen text-white overflow-auto sm:overflow-hidden md:overflow-auto lg:overflow-hidden">
+        <!--Nav Bar-->
+        <nav class="absolute items-center w-full z-50">
+            {% if user.is_authenticated %}
+            <div class="flex flex-wrap items-center justify-between mx-auto p-3">
+                <a href="#" class="flex items-center space-x-3 rtl:space-x-reverse px-3">
+                    <img src="static/images/logo.png" alt="VizKidz Logo" class="h-8">
+                    <img class="h-8" src="static/images/logo - word primary.png" alt="VizKidz Wordmark">
+                </a>
+                <div class="flex ml-auto items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
+                    <button type="button" class="flex items-center justify-center text-sm text-violet-600 font-nunito rounded-full md:me-0 focus:ring-2 focus:ring-pink-500 focus:border-pink-500" 
+                            id="user-menu-button" 
+                            aria-expanded="false" 
+                            data-dropdown-toggle="user-dropdown" 
+                            data-dropdown-placement="bottom">
+                        <span class="sr-only">Open user menu</span>
+                        <div class="w-9 h-9 flex items-center justify-center rounded-full bg-pink-500">
+                            <div class="w-5 h-5 flex items-center justify-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="27" height="30" viewBox="0 0 27 30" fill="none">
+                                    <g clip-path="url(#clip0_110_283)">
+                                        <path d="M13.1726 15C15.1617 15 17.0694 14.2098 18.4759 12.8033C19.8824 11.3968 20.6726 9.48912 20.6726 7.5C20.6726 5.51088 19.8824 3.60322 18.4759 2.1967C17.0694 0.790176 15.1617 0 13.1726 0C11.1835 0 9.27583 0.790176 7.86931 2.1967C6.46278 3.60322 5.67261 5.51088 5.67261 7.5C5.67261 9.48912 6.46278 11.3968 7.86931 12.8033C9.27583 14.2098 11.1835 15 13.1726 15ZM10.4949 17.8125C4.72339 17.8125 0.0476074 22.4883 0.0476074 28.2598C0.0476074 29.2207 0.826904 30 1.78784 30H24.5574C25.5183 30 26.2976 29.2207 26.2976 28.2598C26.2976 22.4883 21.6218 17.8125 15.8503 17.8125H10.4949Z" fill="#FFFDF6"/>
+                                    </g>
+                                    <defs>
+                                        <clipPath id="clip0_110_283">
+                                            <rect width="26.25" height="30" fill="white" transform="translate(0.0476074)"/>
+                                        </clipPath>
+                                    </defs>
+                                </svg>
+                            </div>
+                        </div>
+                        <span class="px-3 text-center text-white text-lg font-bold hidden sm:block">{{username}}</span>
+                    </button>
+        
+                    <!-- Dropdown menu -->
+                    <div class="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow w-48" id="user-dropdown">
+                        <div class="py-2">
+                            <a href="#" class="block px-4 py-2 text-sm font-semibold text-gray-700 hover:bg-pink-500">My Account</a>
+                        </div>
+                        <div class="py-2">
+                            <a href="{% url 'signin' %}?logout=true" class="px-4 py-2 text-sm text-gray-700 hover:bg-pink-500 flex items-center gap-x-20">
+                                <span>Log Out</span>
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 14 15" fill="none">
+                                    <path d="M5 13.5H2.33333C1.97971 13.5 1.64057 13.3595 1.39052 13.1095C1.14048 12.8594 1 12.5203 1 12.1667V2.83333C1 2.47971 1.14048 2.14057 1.39052 1.89052C1.64057 1.64048 1.97971 1.5 2.33333 1.5H5M9.66667 10.8333L13 7.5M13 7.5L9.66667 4.16667M13 7.5H5" stroke="#666666" stroke-width="1.33" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </a>      
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+        </nav>
+        <!-- Main container -->
+        <div class="flex flex-col lg:flex-row h-full items-center justify-between px-4 sm:px-10 lg:px-20 relative mt-20 lg:mt-4 md:mt-20 sm:mt-4">
+            <!-- Left section: Text and buttons -->
+            <div class="max-w-lg text-center lg:text-left space-y-6">
+                <div class="sm:text-left md:text-left">
+                    {% if user.is_authenticated %}
+                    <h1 class="text-black text-4xl text-left sm:text-5xl lg:text-6xl font-extrabold whitespace-nowrap">
+                        Welcome to<span class="block sm:inline-block"></span> <img src="static/images/logo - word secondary.png" alt="VizKidz Wordmark" class="w-40 sm:w-60 lg:w-80 h-12 sm:h-16 lg:h-24 inline-block">
+                    </h1>
+                    <h1 class="text-black text-4xl text-left  sm:text-5xl lg:text-6xl font-extrabold">{{username}}!</h1>
+                    {% endif %}
+                </div>
+                <p class="text-stone-500 text-sm sm:text-base text-left font-normal">
+                    Let's bring your data to life! <br> To get started, select your data visualization chart:
+                </p>
+                <div class="grid grid-cols-3 sm:grid-cols-3 gap-4 sm:gap-6 mt-4 sm:mt-6">
+                    <!-- Pie Chart -->
+                    <div class="flex flex-col items-center">
+                        <button class="h-14 w-14 sm:h-20 sm:w-20 px-2 py-2 sm:px-3.5 sm:py-4 bg-yellow-500 rounded-full flex flex-col justify-center items-center gap-2.5 hover:bg-yellow-500/50">
+                            <div class="relative w-10 h-10 sm:w-14 sm:h-14">
+                                <img src="static/images/chart-pie-solid.svg" class="w-full h-full">
+                            </div>
+                        </button>
+                        <span class="mt-2 font-medium text-sm sm:text-base text-yellow-500">Pie Chart</span>
+                    </div>
+                    <!-- Bar Chart -->
+                    <div class="flex flex-col items-center">
+                        <div class="h-14 w-14 sm:h-20 sm:w-20 px-2 py-2 sm:px-3.5 sm:py-4 bg-pink-500 rounded-full flex-col justify-center items-center gap-2.5 inline-flex hover:bg-pink-500/50">
+                            <div class="relative w-9 h-9 sm:w-12 sm:h-12">
+                                <img src="static/images/chart-column-solid.svg">
+                            </div>
+                        </div>
+                        <span class="mt-2 font-medium text-sm sm:text-base text-pink-500">Bar Chart</span>
+                    </div>
+                    <!-- Line Chart -->
+                    <div class="flex flex-col items-center">
+                        <div class="h-14 w-14 sm:h-20 sm:w-20 px-2 py-2 sm:px-3.5 sm:py-4 bg-orange-500 rounded-full flex-col justify-center items-center gap-2.5 inline-flex hover:bg-orange-500/50">
+                            <div class="relative w-9 h-9 sm:w-12 sm:h-12">
+                                <img src="static/images/chart-line-solid.svg">
+                            </div>
+                        </div>
+                        <span class="mt-2 font-medium text-sm sm:text-base text-orange-500">Line Chart</span>
+                    </div>
+                </div>
+                <div class="grid grid-cols-2 mt-6">
+                    <!-- Time Series Chart -->
+                    <div class="flex flex-col items-center">
+                        <div class="h-14 w-14 sm:h-20 sm:w-20 bg-purple-400 rounded-full flex items-center justify-center hover:bg-purple-400/50">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 sm:h-14 sm:w-14" viewBox="0 0 42 56" fill="none">
+                                <g clip-path="url(#clip0_18_909)">
+                                    <path d="M3.54443 0.5C1.64307 0.5 0.106934 2.03613 0.106934 3.9375C0.106934 5.83887 1.64307 7.375 3.54443 7.375V8.55664C3.54443 13.1113 5.35986 17.4834 8.58252 20.7061L15.8657 28L8.58252 35.2939C5.35986 38.5166 3.54443 42.8887 3.54443 47.4434V48.625C1.64307 48.625 0.106934 50.1611 0.106934 52.0625C0.106934 53.9639 1.64307 55.5 3.54443 55.5H6.98193H34.4819H37.9194C39.8208 55.5 41.3569 53.9639 41.3569 52.0625C41.3569 50.1611 39.8208 48.625 37.9194 48.625V47.4434C37.9194 42.8887 36.104 38.5166 32.8813 35.2939L25.5981 28L32.8921 20.7061C36.1147 17.4834 37.9302 13.1113 37.9302 8.55664V7.375C39.8315 7.375 41.3677 5.83887 41.3677 3.9375C41.3677 2.03613 39.8315 0.5 37.9302 0.5H34.4819H6.98193H3.54443ZM31.0444 47.4434V48.625H10.4194V47.4434C10.4194 44.7041 11.5044 42.083 13.438 40.1494L20.7319 32.8662L28.0259 40.1602C29.9595 42.0938 31.0444 44.7148 31.0444 47.4541V47.4434Z" fill="white" />
+                                </g>
+                                <defs>
+                                    <clipPath id="clip0_18_909">
+                                        <rect width="41.25" height="55" fill="white" transform="translate(0.106934 0.5)" />
+                                    </clipPath>
+                                </defs>
+                            </svg>
+                        </div>
+                        <span class="mt-2 font-medium text-sm sm:text-base text-purple-400">Time Series Chart</span>
+                    </div>
+                    <!-- Doughnut Chart -->
+                    <div class="flex flex-col items-center">
+                        <div class="h-14 w-14 sm:h-20 sm:w-20 px-2 py-2 sm:px-3.5 sm:py-4 bg-orange-600 rounded-full flex-col justify-center items-center gap-2.5 inline-flex hover:bg-orange-600/50">
+                            <div class="relative w-9 h-9 sm:w-14 sm:h-14">
+                                <img src="static/images/circle-dot-solid.svg">
+                            </div>
+                        </div>
+                        <span class="mt-2 font-medium text-sm sm:text-base text-orange-600">Doughnut Chart</span>
+                    </div>
+                </div>
+            </div>
+            <!-- Right section: Floating Rocket -->
+            <div class="relative w-full lg:w-auto">
+                <img src="static/images/Saly-1.png" alt="Rocket" class="w-full sm:w-3/4 md:w-1/2 lg:w-[1100px] lg:ml-10 md:ml-36 h-auto floating">
+            </div>
+        </div>
+        <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.js"></script>
+    </body>
+</html>

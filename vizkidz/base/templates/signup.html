@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
+    <link rel="icon" href="{% static 'images/logo.png' %}" type="image/png">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <title>Sign Up | VizKidz</title>
+    <style>
+        body {
+            background: url('static/images/Background.png') no-repeat center center fixed;
+            background-size: cover;
+        }
+    </style>
+    
+</head>
+<body class="min-h-screen flex items-center justify-center">
+    <!-- Logo Bar  -->
+    <nav class="absolute top-5 left-0 right-0 flex justify-center z-50 sm: md:hidden">
+        <a href="#" class="flex items-center space-x-3 rtl:space-x-reverse px-3">
+            <img src="static/images/logo.png" alt="VizKidz Logo" class="block h-8">
+            <img class="ml-2 block h-8" src="static/images/logo - word primary.png" alt="VizKidz Wordmark">
+        </a>
+    </nav>
+    <!--Main Content-->
+    <div class="bg-white/30 backdrop-blur-md rounded-lg shadow-lg p-8 flex flex-col md:flex-row w-full max-w-4xl relative sm:my-10">
+        <!-- Left Column: Logo -->
+        <div class="flex items-center justify-center flex-1 py-16">
+            <div class="text-center">
+                <img src="{% static 'images/logo.png' %}" alt="VizKidz Logo" class="hidden sm:block h-80 w-48">
+                <img src="{% static 'images/logo - word primary.png' %}" alt="VizKidz Wordmark" class="hidden sm:block w-60">
+            </div>
+        </div>
+
+        <!-- Right Column: Signup Form -->
+        <div class="flex flex-col justify-center flex-1 p-8">
+            <h1 class="text-3xl font-bold text-gray-800 mb-6 text-center">Create an Account</h1>
+            <form method="POST" action="{% url 'signup' %}"">
+                {% csrf_token %}
+                <div class="mb-4">
+                    <label for="username" class="block text-lg font-medium text-stone-500">Username</label>
+                    <input type="text" id="username" name="username" placeholder="Enter username" 
+                            class="mt-1 block w-full px-4 py-2 bg-white border border-gray-300 rounded-full shadow-sm focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-pink-500" required>
+                </div>
+                <div class="mb-4">
+                    <label for="email" class="block text-lg font-medium text-stone-500">Email</label>
+                    <input type="email" id="email" name="email" placeholder="Enter email" 
+                            class="mt-1 block w-full px-4 py-2 bg-white border border-gray-300 rounded-full shadow-sm focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-pink-500" required>
+                </div>
+                <div class="flex flex-row">
+                    <div class="mb-4">
+                        <label for="password" class="block text-lg font-medium text-stone-500">Password</label>
+                        <div class="relative">
+                            <input type="password" id="password" name="password" placeholder="Enter password" 
+                                class="mt-1 block w-full px-4 py-2 bg-white border border-gray-300 rounded-full shadow-sm focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-pink-500" required>
+                            <button 
+                                type="button" 
+                                id="togglePassword" 
+                                class="absolute top-2/4 right-4 -translate-y-2/4 text-gray-500">
+                                <i id="eyeIconPassword" class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="mb-4 ml-4">
+                        <label for="confirm_password" class="block text-lg font-medium text-stone-500">Confirm Password</label>
+                        <div class="relative">
+                            <input type="password" id="confirm_password" name="confirm_password" placeholder="Confirm password" 
+                                class="mt-1 block w-full px-4 py-2 bg-white border border-gray-300 rounded-full shadow-sm focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-pink-500" required>
+                            <button 
+                                type="button" 
+                                id="toggleConfirmPassword" 
+                                class="absolute top-2/4 right-4 -translate-y-2/4 text-gray-500">
+                                <i id="eyeIconConfirmPassword" class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex justify-center mt-4">
+                    <button type="submit" 
+                            class="w-1/2 bg-pink-600 text-white py-2 rounded-full shadow-lg hover:bg-pink-700 focus:outline-none focus:ring-4 focus:ring-pink-300">
+                            Sign Up
+                    </button>
+                </div>
+            </form>
+            <p class="mt-4 text-center text-sm text-gray-700">
+                Already have an account? 
+                <a href="{% url 'signin' %}" class="text-pink-600 font-medium hover:underline">Log In</a>
+                
+            </p>
+        </div>
+        
+        
+    </div>
+    <script>
+        const togglePassword = document.querySelector("#togglePassword");
+        const passwordField = document.querySelector("#password");
+        const eyeIconPassword = document.querySelector("#eyeIconPassword");
+
+        const toggleConfirmPassword = document.querySelector("#toggleConfirmPassword");
+        const confirmPasswordField = document.querySelector("#confirm_password");
+        const eyeIconConfirmPassword = document.querySelector("#eyeIconConfirmPassword");
+
+        togglePassword.addEventListener("click", function () {
+            const type = passwordField.getAttribute("type") === "password" ? "text" : "password";
+            passwordField.setAttribute("type", type);
+            eyeIconPassword.classList.toggle("fa-eye-slash");
+        });
+
+        toggleConfirmPassword.addEventListener("click", function () {
+            const type = confirmPasswordField.getAttribute("type") === "password" ? "text" : "password";
+            confirmPasswordField.setAttribute("type", type);
+            eyeIconConfirmPassword.classList.toggle("fa-eye-slash");
+        });
+
+    </script>    
+</body>
+</html>
